@@ -1,7 +1,7 @@
 import OpenAI from "openai";
 
 const openai = new OpenAI({
-  apiKey: process.env.NEXT_PUBLIC_OPENAI_API_KEY, 
+  apiKey: process.env.OPENAI_API_KEY, 
   baseURL: 'https://api.nova-oss.com/v1',
 });
 
@@ -30,7 +30,7 @@ export default async function handler(req, res) {
 
       return res.status(200).json({ completionResponse });
     } catch (error) {
-      console.error(error);
+      console.error("Error in OpenAI request:", error.message || error);
       return res.status(500).json({ error: 'An error occurred' });
     }
   } else if (req.method === 'GET') {
@@ -43,7 +43,7 @@ export default async function handler(req, res) {
 
       return res.status(200).json({ prompt });
     } catch (error) {
-      console.error(error);
+      console.error("Error in OpenAI request:", error.message || error);
       return res.status(500).json({ error: 'An error occurred' });
     }
   } else {
